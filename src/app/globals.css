@@ -3,27 +3,45 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1f2937;
+}
+
+[data-theme="dark"] {
+  --background: #0a111a;
+  --foreground: #f3f4f6;
+}
+
+[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #1f2937;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a111a;
+    --foreground: #f3f4f6;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-manrope), sans-serif;
+  --font-serif: var(--font-jost), serif;
+  --font-heading: var(--font-jost), sans-serif;
+  
+  --color-regalis-navy: #213449;
+  --color-regalis-gold: #EAA638;
+  --color-regalis-gold-hover: #d9952b;
+  --color-regalis-text: #7A7A7A;
+  --color-regalis-bg-light: #EBF0F6;
+  --color-regalis-bg-dark: #0a111a;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), sans-serif;
 }
 
 @keyframes float {
@@ -54,27 +72,27 @@ body {
 
 /* Glassmorphism custom utilities */
 .glass-effect {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(33, 52, 73, 0.02);
   backdrop-filter: blur(20px) saturate(125%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(33, 52, 73, 0.08);
 }
 
-.dark .glass-effect {
-  background: rgba(9, 9, 11, 0.4);
+.dark .glass-effect, [data-theme="dark"] .glass-effect {
+  background: rgba(13, 23, 35, 0.6);
   backdrop-filter: blur(20px) saturate(125%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(234, 166, 56, 0.08);
 }
 
 .glass-effect-light {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(33, 52, 73, 0.08);
 }
 
-.dark .glass-effect-light {
-  background: rgba(9, 9, 11, 0.65);
+.dark .glass-effect-light, [data-theme="dark"] .glass-effect-light {
+  background: rgba(13, 23, 35, 0.8);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(234, 166, 56, 0.08);
 }
 
 html {
@@ -90,10 +108,10 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.2);
+  background: rgba(234, 166, 56, 0.2);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.4);
+  background: rgba(234, 166, 56, 0.4);
 }
 

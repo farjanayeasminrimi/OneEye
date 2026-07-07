@@ -16,7 +16,7 @@ import {
   ShieldAlert
 } from "lucide-react";
 
-// Mock lawyers database for simulated search autocomplete
+// Mock lawyers database for simulated search autocomplete matching page.js
 const mockLawyers = [
   { name: "Sarah Jenkins", specialty: "Criminal Defense", rating: "4.9", area: "New York" },
   { name: "David Vance", specialty: "Corporate Law", rating: "4.8", area: "San Francisco" },
@@ -143,7 +143,10 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Browse Lawyers", href: "/lawyers" },
+    { name: "Practice Areas", href: "/#practice-areas" },
+    { name: "Case Studies", href: "/#case-studies" },
+    { name: "About Us", href: "/#about" },
+    { name: "FAQs", href: "/#faqs" },
   ];
 
   if (!mounted) return null;
@@ -152,7 +155,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white/60 dark:bg-slate-950/40 backdrop-blur-xl border-b border-slate-200/40 dark:border-white/[0.05] shadow-lg py-3"
+          ? "bg-white/95 dark:bg-regalis-bg-dark/95 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/[0.05] shadow-lg py-3"
           : "bg-transparent py-5"
       }`}
     >
@@ -160,19 +163,19 @@ export default function Navbar() {
         
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="h-9 w-9 rounded-xl border border-slate-200 dark:border-white/10 bg-white/10 dark:bg-slate-900/40 flex items-center justify-center text-slate-800 dark:text-white backdrop-blur-md group-hover:scale-105 transition-transform duration-300">
-            <Scale size={18} className="text-indigo-650 dark:text-indigo-400" />
+          <div className="h-10 w-10 rounded-xl border border-regalis-gold/20 bg-white/10 dark:bg-slate-900/40 flex items-center justify-center text-regalis-gold backdrop-blur-md group-hover:scale-105 transition-transform duration-300">
+            <Scale size={20} className="text-regalis-gold" />
           </div>
           <div className="flex flex-col">
-            <span className={`text-xl font-black tracking-tight transition-colors duration-300 ${
+            <span className={`text-2xl font-serif font-bold tracking-tight transition-colors duration-300 ${
               scrolled 
-                ? "text-slate-900 dark:text-white" 
+                ? "text-regalis-navy dark:text-white" 
                 : "text-white"
             }`}>
-              One<span className="font-semibold text-indigo-650 dark:text-indigo-400">Eye</span>
+              Regalis
             </span>
-            <span className="text-[8px] tracking-widest font-bold uppercase text-slate-400 dark:text-slate-500 -mt-1 transition-colors">
-              Legal Hub
+            <span className="text-[9px] tracking-widest font-bold uppercase text-regalis-gold -mt-1 transition-colors">
+              Law Firm
             </span>
           </div>
         </Link>
@@ -183,19 +186,19 @@ export default function Navbar() {
             const active = pathname === item.href;
             return (
               <Link
-                key={item.href}
+                key={item.name}
                 href={item.href}
-                className={`relative text-sm font-semibold tracking-wide transition-all duration-300 py-1 ${
+                className={`relative text-sm font-sans font-medium tracking-wide transition-all duration-300 py-1 ${
                   active 
-                    ? "text-indigo-550 dark:text-indigo-450" 
+                    ? "text-regalis-gold" 
                     : scrolled 
-                      ? "text-slate-600 dark:text-slate-350 hover:text-indigo-600 dark:hover:text-indigo-400" 
-                      : "text-slate-250 hover:text-white"
+                      ? "text-regalis-navy dark:text-slate-300 hover:text-regalis-gold dark:hover:text-regalis-gold" 
+                      : "text-slate-200 hover:text-regalis-gold"
                 }`}
               >
                 {item.name}
                 {active && (
-                  <span className="absolute left-0 bottom-0 w-full h-[2px] rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse"></span>
+                  <span className="absolute left-0 bottom-0 w-full h-[2px] rounded-full bg-regalis-gold animate-pulse"></span>
                 )}
               </Link>
             );
@@ -206,12 +209,12 @@ export default function Navbar() {
             <div ref={dropdownRef} className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className={`flex items-center gap-1 text-sm font-semibold tracking-wide transition-all duration-300 py-1 focus:outline-none cursor-pointer ${
+                className={`flex items-center gap-1 text-sm font-sans font-medium tracking-wide transition-all duration-300 py-1 focus:outline-none cursor-pointer ${
                   pathname.startsWith("/dashboard")
-                    ? "text-indigo-550 dark:text-indigo-455"
+                    ? "text-regalis-gold"
                     : scrolled
-                      ? "text-slate-600 dark:text-slate-350 hover:text-indigo-600 dark:hover:text-indigo-400"
-                      : "text-slate-250 hover:text-white"
+                      ? "text-regalis-navy dark:text-slate-300 hover:text-regalis-gold dark:hover:text-regalis-gold"
+                      : "text-slate-200 hover:text-regalis-gold"
                 }`}
               >
                 Dashboard
@@ -222,7 +225,7 @@ export default function Navbar() {
               {dropdownOpen && (
                 <div className="absolute left-0 mt-3 w-64 rounded-2xl glass-effect-light dark:glass-effect shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-300 flex flex-col gap-1">
                   <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800/80 mb-1 flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="h-2 w-2 rounded-full bg-regalis-gold animate-pulse"></span>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                       Logged in as: {role}
                     </span>
@@ -232,10 +235,10 @@ export default function Navbar() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setDropdownOpen(false)}
-                      className="px-3 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/40 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 flex flex-col text-left group"
+                      className="px-3 py-2 rounded-xl text-slate-700 dark:text-slate-250 hover:bg-regalis-bg-light dark:hover:bg-slate-800/40 hover:text-regalis-gold dark:hover:text-regalis-gold transition-all duration-205 flex flex-col text-left group"
                     >
                       <span className="text-xs font-semibold">{item.name}</span>
-                      <span className="text-[10px] text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400 transition-colors">
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 group-hover:text-regalis-gold/80 transition-colors">
                         {item.desc}
                       </span>
                     </Link>
@@ -249,14 +252,14 @@ export default function Navbar() {
         {/* RIGHT SIDE SECTION (Search, Segmented Theme Switcher, Auth Buttons) */}
         <div className="hidden lg:flex items-center gap-4">
           
-          {/* Autocomplete Search Bar - Wrap in fixed width container to avoid layout shift */}
+          {/* Autocomplete Search Bar */}
           <div ref={searchRef} className="relative w-64 flex justify-end">
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
               placeholder="Search lawyers..."
-              startContent={<Search size={15} className="text-slate-450 dark:text-slate-500" />}
+              startContent={<Search size={15} className="text-slate-400 dark:text-slate-500" />}
               radius="full"
               size="sm"
               className={`w-48 transition-all duration-500 ${
@@ -264,16 +267,16 @@ export default function Navbar() {
               }`}
               classNames={{
                 inputWrapper: scrolled
-                  ? "bg-slate-100/80 dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800/50 hover:border-indigo-500/30 dark:hover:border-indigo-400/30"
+                  ? "bg-slate-100/80 dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800/50 hover:border-regalis-gold/30 dark:hover:border-regalis-gold/30"
                   : "bg-white/10 dark:bg-slate-950/30 border border-white/10 backdrop-blur-md text-white hover:bg-white/20",
-                input: scrolled ? "text-slate-900 dark:text-white" : "text-white placeholder:text-slate-350",
+                input: scrolled ? "text-slate-900 dark:text-white" : "text-white placeholder:text-slate-300",
               }}
             />
 
             {/* Simulated Search Dropdown */}
             {isSearchFocused && searchQuery.trim() && (
               <div className="absolute top-12 right-0 w-80 glass-effect-light dark:glass-effect shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-2 duration-300 rounded-2xl">
-                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
+                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-2">
                   Matching Lawyers ({searchResults.length})
                 </p>
                 {searchResults.length > 0 ? (
@@ -295,7 +298,7 @@ export default function Navbar() {
                             {lawyer.specialty} • {lawyer.area}
                           </p>
                         </div>
-                        <span className="text-[10px] font-semibold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] font-semibold bg-regalis-gold/10 text-regalis-gold px-2 py-0.5 rounded-full">
                           ★ {lawyer.rating}
                         </span>
                       </div>
@@ -317,9 +320,9 @@ export default function Navbar() {
               onClick={() => setTheme("light")}
               className={`p-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                 theme === "light"
-                  ? "bg-white text-indigo-650 shadow-sm"
+                  ? "bg-white text-regalis-gold shadow-sm"
                   : scrolled
-                    ? "text-slate-500 hover:text-slate-850"
+                    ? "text-slate-500 hover:text-slate-800"
                     : "text-slate-400 hover:text-white"
               }`}
               title="Light Theme"
@@ -331,7 +334,7 @@ export default function Navbar() {
               onClick={() => setTheme("dark")}
               className={`p-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                 theme === "dark"
-                  ? "bg-slate-950 text-indigo-400 shadow-sm"
+                  ? "bg-slate-950 text-regalis-gold shadow-sm"
                   : scrolled
                     ? "text-slate-500 hover:text-slate-850"
                     : "text-slate-400 hover:text-white"
@@ -343,33 +346,43 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Authentication Buttons (Separate Login & Sign Up) */}
+          {/* Authentication & Booking Button */}
           {isLoggedIn ? (
-            <Button
-              radius="full"
-              className="font-semibold text-xs px-5 h-9 bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 text-slate-700 dark:text-slate-350 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-300 cursor-pointer"
-              onClick={handleAuthToggle}
-            >
-              Logout
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                as={Link}
+                href="/#contact"
+                radius="full"
+                className="font-bold text-xs px-5 h-9 bg-regalis-gold hover:bg-regalis-gold-hover text-white shadow-md shadow-regalis-gold/20 transition-all duration-300 cursor-pointer"
+              >
+                Book Appointment
+              </Button>
+              <Button
+                radius="full"
+                className="font-semibold text-xs px-4 h-9 bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 text-slate-700 dark:text-slate-350 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-300 cursor-pointer"
+                onClick={handleAuthToggle}
+              >
+                Logout
+              </Button>
+            </div>
           ) : (
             <div className="flex items-center gap-2">
               <button
                 onClick={handleAuthToggle}
                 className={`font-semibold text-xs px-3.5 py-1.5 rounded-full transition cursor-pointer ${
                   scrolled 
-                    ? "text-slate-655 dark:text-slate-350 hover:text-indigo-600 dark:hover:text-indigo-400" 
-                    : "text-slate-200 hover:text-white"
+                    ? "text-slate-700 dark:text-slate-350 hover:text-regalis-gold" 
+                    : "text-slate-200 hover:text-regalis-gold"
                 }`}
               >
                 Login
               </button>
               <Button
                 radius="full"
-                className="font-semibold text-xs px-5 h-9 bg-indigo-650 hover:bg-indigo-550 text-white shadow-lg shadow-indigo-500/10 transition duration-300 cursor-pointer"
+                className="font-bold text-xs px-5 h-9 bg-regalis-gold hover:bg-regalis-gold-hover text-white shadow-lg shadow-regalis-gold/20 transition duration-300 cursor-pointer"
                 onClick={handleAuthToggle}
               >
-                Sign Up
+                Book Appointment
               </Button>
             </div>
           )}
@@ -390,7 +403,7 @@ export default function Navbar() {
 
       {/* MOBILE DRAWER MENU */}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-slate-200/50 dark:border-white/[0.05] ${
+        className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out bg-white/98 dark:bg-regalis-bg-dark/98 backdrop-blur-xl border-slate-200/50 dark:border-white/[0.05] ${
           menuOpen ? "max-h-[100vh] border-b opacity-100 py-6" : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
@@ -424,7 +437,7 @@ export default function Navbar() {
                         <p className="font-bold text-slate-800 dark:text-white">{lawyer.name}</p>
                         <p className="text-[10px] text-slate-400">{lawyer.specialty}</p>
                       </div>
-                      <span className="text-[10px] text-indigo-500">★ {lawyer.rating}</span>
+                      <span className="text-[10px] text-regalis-gold">★ {lawyer.rating}</span>
                     </div>
                   ))
                 ) : (
@@ -436,18 +449,18 @@ export default function Navbar() {
 
           {/* Navigation Links */}
           <div className="flex flex-col gap-4">
-            <p className="text-xs font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">
+            <p className="text-xs font-bold text-slate-400 dark:text-slate-550 uppercase tracking-widest">
               Navigation
             </p>
             {navLinks.map((item) => (
               <Link
-                key={item.href}
+                key={item.name}
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
-                className={`text-lg font-semibold transition-colors duration-250 ${
+                className={`text-lg font-serif font-bold transition-colors duration-250 ${
                   pathname === item.href
-                    ? "text-indigo-500"
-                    : "text-slate-700 dark:text-slate-300 hover:text-indigo-500"
+                    ? "text-regalis-gold"
+                    : "text-slate-700 dark:text-slate-300 hover:text-regalis-gold"
                 }`}
               >
                 {item.name}
@@ -459,10 +472,10 @@ export default function Navbar() {
           {isLoggedIn && (
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between border-t border-b border-slate-100 dark:border-slate-900 py-2">
-                <span className="text-xs font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">
+                <span className="text-xs font-bold text-slate-400 dark:text-slate-550 uppercase tracking-widest">
                   Dashboard ({role})
                 </span>
-                <span className="text-[10px] bg-green-500/10 text-green-600 dark:text-green-400 px-2 py-0.5 rounded-full font-bold">
+                <span className="text-[10px] bg-regalis-gold/10 text-regalis-gold px-2 py-0.5 rounded-full font-bold">
                   Active
                 </span>
               </div>
@@ -472,7 +485,7 @@ export default function Navbar() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className="text-base font-medium text-slate-700 dark:text-slate-300 hover:text-indigo-500 transition-colors duration-200"
+                    className="text-base font-medium text-slate-700 dark:text-slate-300 hover:text-regalis-gold transition-colors duration-200"
                   >
                     {item.name}
                   </Link>
@@ -489,7 +502,7 @@ export default function Navbar() {
                 onClick={() => setTheme("light")}
                 className={`p-1.5 rounded-full transition ${
                   theme === "light"
-                    ? "bg-white text-indigo-650 shadow-sm"
+                    ? "bg-white text-regalis-gold shadow-sm"
                     : "text-slate-500"
                 }`}
               >
@@ -499,7 +512,7 @@ export default function Navbar() {
                 onClick={() => setTheme("dark")}
                 className={`p-1.5 rounded-full transition ${
                   theme === "dark"
-                    ? "bg-slate-950 text-indigo-400 shadow-sm"
+                    ? "bg-slate-950 text-regalis-gold shadow-sm"
                     : "text-slate-550"
                 }`}
               >
@@ -508,18 +521,29 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Auth Buttons */}
+          {/* Mobile Auth/Booking Button */}
           {isLoggedIn ? (
-            <Button
-              radius="full"
-              className="w-full font-bold text-sm h-11 bg-slate-100 dark:bg-slate-900 text-slate-750 dark:text-slate-350"
-              onClick={() => {
-                handleAuthToggle();
-                setMenuOpen(false);
-              }}
-            >
-              Log Out from OneEye
-            </Button>
+            <div className="flex flex-col gap-2">
+              <Button
+                as={Link}
+                href="/#contact"
+                radius="full"
+                className="w-full font-bold text-sm h-11 bg-regalis-gold text-white"
+                onClick={() => setMenuOpen(false)}
+              >
+                Book Appointment
+              </Button>
+              <Button
+                radius="full"
+                className="w-full font-bold text-sm h-11 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-350"
+                onClick={() => {
+                  handleAuthToggle();
+                  setMenuOpen(false);
+                }}
+              >
+                Logout from Regalis
+              </Button>
+            </div>
           ) : (
             <div className="flex flex-col gap-2 w-full">
               <Button
@@ -535,13 +559,13 @@ export default function Navbar() {
               </Button>
               <Button
                 radius="full"
-                className="w-full font-bold text-sm h-11 bg-indigo-600 text-white hover:bg-indigo-550"
+                className="w-full font-bold text-sm h-11 bg-regalis-gold text-white hover:bg-regalis-gold-hover"
                 onClick={() => {
                   handleAuthToggle();
                   setMenuOpen(false);
                 }}
               >
-                Sign Up
+                Book Appointment
               </Button>
             </div>
           )}
