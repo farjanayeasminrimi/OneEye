@@ -5,16 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { useTheme } from "next-themes";
 import { Button, Input } from "@heroui/react";
-import {
-  Menu,
-  X,
-  Search,
-  Scale,
-  ChevronDown,
-  Sun,
-  Moon,
-  ShieldAlert
-} from "lucide-react";
+import { Menu, X, Search, Scale, ChevronDown, Sun, Moon, ShieldAlert } from "lucide-react";
 
 // Mock lawyers database for simulated search autocomplete matching page.js
 const mockLawyers = [
@@ -29,11 +20,11 @@ const mockLawyers = [
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  
+
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  
+
   // Simulated Auth and Role States
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [role, setRole] = useState("lawyer"); // client | lawyer | admin
@@ -56,7 +47,7 @@ export default function Navbar() {
       if (typeof window !== "undefined") {
         const storedLogin = localStorage.getItem("oneeye-logged-in");
         const storedRole = localStorage.getItem("oneeye-role");
-        
+
         if (storedLogin !== null) {
           setIsLoggedIn(storedLogin === "true");
         }
@@ -73,7 +64,7 @@ export default function Navbar() {
     };
 
     window.addEventListener("oneeye-auth-change", handleAuthChange);
-    
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
     };
@@ -98,7 +89,6 @@ export default function Navbar() {
     };
   }, []);
 
-  // Handle simulated search filtering
   useEffect(() => {
     if (!searchQuery.trim()) {
       setSearchResults([]);
@@ -108,8 +98,7 @@ export default function Navbar() {
     const query = searchQuery.toLowerCase();
     const filtered = mockLawyers.filter(
       (lawyer) =>
-        lawyer.name.toLowerCase().includes(query) ||
-        lawyer.specialty.toLowerCase().includes(query)
+        lawyer.name.toLowerCase().includes(query) || lawyer.specialty.toLowerCase().includes(query),
     );
     setSearchResults(filtered);
   }, [searchQuery]);
@@ -122,7 +111,6 @@ export default function Navbar() {
     window.dispatchEvent(new Event("oneeye-auth-change"));
   };
 
-  // Define Dashboard links based on role
   const dashboardMenus = {
     client: [
       { name: "My Bookings", href: "/dashboard/bookings", desc: "Manage consultations" },
@@ -160,18 +148,17 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2 group">
           <div className="h-10 w-10 rounded-xl border border-regalis-gold/20 bg-white/10 dark:bg-slate-900/40 flex items-center justify-center text-regalis-gold backdrop-blur-md group-hover:scale-105 transition-transform duration-300">
             <Scale size={20} className="text-regalis-gold" />
           </div>
           <div className="flex flex-col">
-            <span className={`text-2xl font-serif font-bold tracking-tight transition-colors duration-300 ${
-              scrolled 
-                ? "text-regalis-navy dark:text-white" 
-                : "text-white"
-            }`}>
+            <span
+              className={`text-2xl font-serif font-bold tracking-tight transition-colors duration-300 ${
+                scrolled ? "text-regalis-navy dark:text-white" : "text-white"
+              }`}
+            >
               Regalis
             </span>
             <span className="text-[9px] tracking-widest font-bold uppercase text-regalis-gold -mt-1 transition-colors">
@@ -189,10 +176,10 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 className={`relative text-sm font-sans font-medium tracking-wide transition-all duration-300 py-1 ${
-                  active 
-                    ? "text-regalis-gold" 
-                    : scrolled 
-                      ? "text-regalis-navy dark:text-slate-300 hover:text-regalis-gold dark:hover:text-regalis-gold" 
+                  active
+                    ? "text-regalis-gold"
+                    : scrolled
+                      ? "text-regalis-navy dark:text-slate-300 hover:text-regalis-gold dark:hover:text-regalis-gold"
                       : "text-slate-200 hover:text-regalis-gold"
                 }`}
               >
@@ -218,7 +205,10 @@ export default function Navbar() {
                 }`}
               >
                 Dashboard
-                <ChevronDown size={15} className={`mt-0.5 transition-transform duration-300 ${dropdownOpen ? "rotate-180" : ""}`} />
+                <ChevronDown
+                  size={15}
+                  className={`mt-0.5 transition-transform duration-300 ${dropdownOpen ? "rotate-180" : ""}`}
+                />
               </button>
 
               {/* Custom Glass Dropdown Menu */}
@@ -251,7 +241,6 @@ export default function Navbar() {
 
         {/* RIGHT SIDE SECTION (Search, Segmented Theme Switcher, Auth Buttons) */}
         <div className="hidden lg:flex items-center gap-4">
-          
           {/* Autocomplete Search Bar */}
           <div ref={searchRef} className="relative w-64 flex justify-end">
             <Input
@@ -262,14 +251,14 @@ export default function Navbar() {
               startContent={<Search size={15} className="text-slate-400 dark:text-slate-500" />}
               radius="full"
               size="sm"
-              className={`w-48 transition-all duration-500 ${
-                isSearchFocused ? "w-full" : ""
-              }`}
+              className={`w-48 transition-all duration-500 ${isSearchFocused ? "w-full" : ""}`}
               classNames={{
                 inputWrapper: scrolled
                   ? "bg-slate-100/80 dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800/50 hover:border-regalis-gold/30 dark:hover:border-regalis-gold/30"
                   : "bg-white/10 dark:bg-slate-950/30 border border-white/10 backdrop-blur-md text-white hover:bg-white/20",
-                input: scrolled ? "text-slate-900 dark:text-white" : "text-white placeholder:text-slate-300",
+                input: scrolled
+                  ? "text-slate-900 dark:text-white"
+                  : "text-white placeholder:text-slate-300",
               }}
             />
 
@@ -307,7 +296,9 @@ export default function Navbar() {
                 ) : (
                   <div className="text-center py-6">
                     <ShieldAlert size={24} className="mx-auto text-slate-400 mb-2" />
-                    <p className="text-xs text-slate-500 dark:text-slate-400">No lawyers found for "{searchQuery}"</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      No lawyers found for "{searchQuery}"
+                    </p>
                   </div>
                 )}
               </div>
@@ -370,8 +361,8 @@ export default function Navbar() {
               <button
                 onClick={handleAuthToggle}
                 className={`font-semibold text-xs px-3.5 py-1.5 rounded-full transition cursor-pointer ${
-                  scrolled 
-                    ? "text-slate-700 dark:text-slate-350 hover:text-regalis-gold" 
+                  scrolled
+                    ? "text-slate-700 dark:text-slate-350 hover:text-regalis-gold"
                     : "text-slate-200 hover:text-regalis-gold"
                 }`}
               >
@@ -398,13 +389,14 @@ export default function Navbar() {
         >
           {menuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
-
       </div>
 
       {/* MOBILE DRAWER MENU */}
       <div
         className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out bg-white/98 dark:bg-regalis-bg-dark/98 backdrop-blur-xl border-slate-200/50 dark:border-white/[0.05] ${
-          menuOpen ? "max-h-[100vh] border-b opacity-100 py-6" : "max-h-0 opacity-0 pointer-events-none"
+          menuOpen
+            ? "max-h-[100vh] border-b opacity-100 py-6"
+            : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
         <div className="px-6 space-y-6">
@@ -418,7 +410,8 @@ export default function Navbar() {
               radius="full"
               size="md"
               classNames={{
-                inputWrapper: "bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50",
+                inputWrapper:
+                  "bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50",
               }}
             />
             {searchQuery.trim() && (
@@ -501,9 +494,7 @@ export default function Navbar() {
               <button
                 onClick={() => setTheme("light")}
                 className={`p-1.5 rounded-full transition ${
-                  theme === "light"
-                    ? "bg-white text-regalis-gold shadow-sm"
-                    : "text-slate-500"
+                  theme === "light" ? "bg-white text-regalis-gold shadow-sm" : "text-slate-500"
                 }`}
               >
                 <Sun size={13} />
@@ -511,9 +502,7 @@ export default function Navbar() {
               <button
                 onClick={() => setTheme("dark")}
                 className={`p-1.5 rounded-full transition ${
-                  theme === "dark"
-                    ? "bg-slate-950 text-regalis-gold shadow-sm"
-                    : "text-slate-550"
+                  theme === "dark" ? "bg-slate-950 text-regalis-gold shadow-sm" : "text-slate-550"
                 }`}
               >
                 <Moon size={13} />
